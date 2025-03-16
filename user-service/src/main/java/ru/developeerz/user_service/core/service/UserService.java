@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.developeerz.user_service.api.user.model.JwtResponse;
 import ru.developeerz.user_service.api.user.model.LoginRequest;
 import ru.developeerz.user_service.api.user.model.RegistrationRequest;
+import ru.developeerz.user_service.api.user.model.VerificationRequest;
 import ru.developeerz.user_service.core.UserMapper;
 import ru.developeerz.user_service.core.entity.AuthorityId;
 import ru.developeerz.user_service.core.entity.User;
@@ -61,7 +62,7 @@ public class UserService {
     }
 
 
-    public void verifyUser(VerificationRequest request) {
+    public ResponseEntity<JwtResponse> verifyUser(VerificationRequest request) {
         Optional<User> optUser = userRepository.findById(request.userId());
         User user = optUser.orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -70,5 +71,7 @@ public class UserService {
         // TODO compare verification code
 
         // TODO verify user
+
+        return null;
     }
 }

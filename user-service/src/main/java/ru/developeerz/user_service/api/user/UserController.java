@@ -10,6 +10,7 @@ import ru.developeerz.user_service.api.ApiPaths;
 import ru.developeerz.user_service.api.user.model.JwtResponse;
 import ru.developeerz.user_service.api.user.model.LoginRequest;
 import ru.developeerz.user_service.api.user.model.RegistrationRequest;
+import ru.developeerz.user_service.api.user.model.VerificationRequest;
 import ru.developeerz.user_service.core.service.UserService;
 
 @RestController
@@ -30,6 +31,6 @@ public class UserController {
 
     @PostMapping(ApiPaths.VERIFY)
     public ResponseEntity<JwtResponse> verifyUser(@Valid @RequestBody VerificationRequest request) {
-        userService.verifyUser(request);
+        return userService.verifyUser(request);
     }
 }

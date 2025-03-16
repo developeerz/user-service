@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 public record RegistrationRequest(
 
         @NotBlank
-        String firstname,
+        String firstName,
 
         @NotBlank
-        String lastname,
+        String lastName,
 
         @NotBlank
         String email,
