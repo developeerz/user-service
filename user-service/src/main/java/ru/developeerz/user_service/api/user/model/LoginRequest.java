@@ -1,15 +1,17 @@
 package ru.developeerz.user_service.api.user.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.constraints.NotBlank;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class LoginRequest {
 
-    private String password;
+public record LoginRequest(
 
-    private String email;
+        @NotBlank
+        @Parameter(name = "пароль", required = true)
+        String password,
+
+        @NotBlank
+        @Parameter(name = "почта", required = true)
+        String email
+) {
 }
