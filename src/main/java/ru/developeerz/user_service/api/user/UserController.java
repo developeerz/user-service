@@ -3,6 +3,7 @@ package ru.developeerz.user_service.api.user;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(ApiPaths.LOGIN)
-    public ResponseEntity<JwtResponse> loginUser(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request) {
         return userService.loginUser(request);
     }
 
@@ -33,4 +34,5 @@ public class UserController {
     public ResponseEntity<JwtResponse> verifyUser(@Valid @RequestBody VerificationRequest request) {
         return userService.verifyUser(request);
     }
+
 }

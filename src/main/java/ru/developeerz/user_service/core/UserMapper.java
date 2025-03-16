@@ -3,9 +3,9 @@ package ru.developeerz.user_service.core;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.developeerz.user_service.api.user.model.RegistrationRequest;
 import ru.developeerz.user_service.core.entity.User;
+import ru.developeerz.user_service.core.service.PasswordUtil;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -18,6 +18,6 @@ public interface UserMapper {
 
     @Named("hashPassword")
     default String hashPassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
+        return PasswordUtil.getHashed(password);
     }
 }

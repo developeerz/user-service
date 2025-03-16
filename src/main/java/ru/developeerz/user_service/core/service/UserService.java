@@ -30,7 +30,7 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public ResponseEntity<JwtResponse> loginUser(LoginRequest request) {
+    public ResponseEntity<?> loginUser(LoginRequest request) {
         Optional<User> optUser = userRepository.findByEmail(request.email());
         User user = optUser.orElseThrow(() -> new RuntimeException("User not found"));
 
