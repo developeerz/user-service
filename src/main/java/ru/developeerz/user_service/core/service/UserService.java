@@ -1,6 +1,7 @@
 package ru.developeerz.user_service.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.developeerz.user_service.api.user.model.JwtResponse;
@@ -24,8 +25,6 @@ public class UserService {
 
     private final UserAuthorityRepository userAuthorityRepository;
 
-    private final PasswordUtil passwordUtil;
-
     private final JwtProvider jwtProvider;
 
     private final UserMapper userMapper;
@@ -34,7 +33,7 @@ public class UserService {
         Optional<User> optUser = userRepository.findByEmail(request.email());
         User user = optUser.orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!passwordUtil.isMatch(request.password(), user.getHashedPassword())) {
+        if (!PasswordUtil.isMatch(request.password(), user.getHashedPassword())) {
             throw new RuntimeException("Wrong password");
         }
 
@@ -48,11 +47,18 @@ public class UserService {
     }
 
 
-    public void registrationUser(RegistrationRequest request) {
+    public ResponseEntity<Void> registrationUser(RegistrationRequest request) {
         // TODO check valid email
+
+        Optional<User> optUser = userRepository.findByEmail(request.email());
+        if (optUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
 
         User user = userMapper.map(request);
         userRepository.save(user);
+
+        return ResponseEntity.ok().body(null);
 
         // TODO save verification code
 
@@ -74,4 +80,5 @@ public class UserService {
 
         return null;
     }
+
 }

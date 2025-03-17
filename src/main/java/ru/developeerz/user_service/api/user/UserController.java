@@ -3,7 +3,6 @@ package ru.developeerz.user_service.api.user;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping(ApiPaths.REGISTRATION)
-    public void registrationUser(@Valid @RequestBody RegistrationRequest request) {
-        userService.registrationUser(request);
+    public ResponseEntity<Void> registrationUser(@Valid @RequestBody RegistrationRequest request) {
+        return userService.registrationUser(request);
     }
 
     @PostMapping(ApiPaths.VERIFY)
